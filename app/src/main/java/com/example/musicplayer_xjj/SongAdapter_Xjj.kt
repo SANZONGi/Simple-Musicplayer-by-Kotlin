@@ -1,11 +1,14 @@
 package com.example.musicplayer_xjj
 
 import android.app.AlertDialog
+import android.content.ContentResolver
+import android.content.ContentValues
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,10 +16,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.content.contentValuesOf
 import androidx.recyclerview.widget.RecyclerView
 import kotlin.collections.ArrayList
 
-class SongAdapter_Xjj(val SongList: ArrayList<Song>) :
+class SongAdapter_Xjj(val SongList: ArrayList<Song>,val path:String) :
     RecyclerView.Adapter<SongAdapter_Xjj.ViewHolder>() {
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val name: TextView = view.findViewById(R.id.song_name)
@@ -53,7 +57,7 @@ class SongAdapter_Xjj(val SongList: ArrayList<Song>) :
                         notifyItemRemoved(position)
                         notifyItemRangeChanged(position, itemCount)
                     })
-                .setPositiveButton("下载",
+                .setPositiveButton("下载，需要等待6s",
                     DialogInterface.OnClickListener { dialog, whichButton ->
                         Log.d("pre",SongList[position].path.substring(0,4))
                         if (SongList[position].path.substring(0,4) != "http")
@@ -62,7 +66,9 @@ class SongAdapter_Xjj(val SongList: ArrayList<Song>) :
 
                         }else {
                             val download = DownLoadMusic_XJJ()
-                            download.downLoad(SongList[position].path, SongList[position].name)
+                            download.downLoad(SongList[position].path, SongList[position].name,path,parent.context)
+
+                            Thread.sleep(6000)
                             Toast.makeText(parent.context,"下载成功",Toast.LENGTH_SHORT).show()
                         }
                     }).show()

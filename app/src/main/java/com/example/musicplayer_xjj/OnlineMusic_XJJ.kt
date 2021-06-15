@@ -50,6 +50,7 @@ class OnlineMusic_XJJ : AppCompatActivity() {
                 flag++
                 start_search.text = "跳转"
                 Toast.makeText(this,"查询成功",Toast.LENGTH_SHORT).show()
+                Thread.sleep(1500)
             }
             else if (flag == 1) {
                 val intent = Intent(this, ListView_XJJ::class.java)

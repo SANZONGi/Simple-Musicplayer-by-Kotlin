@@ -6,6 +6,7 @@ import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
@@ -194,8 +195,11 @@ class MainActivity : AppCompatActivity() {
                 .setNegativeButton("回到列表",
                     DialogInterface.OnClickListener { dialog, which ->
                         mPlayer.stop()
-//                        mPlayer.release()
-                        val intent = Intent(this,ListView_XJJ::class.java)
+                        val intent = Intent()
+                        val bundle = Bundle()
+                        bundle.putParcelableArrayList("song_ser", songlist as ArrayList<out Parcelable>)
+                        intent.putExtras(bundle)
+                        intent.setClass(this, ListView_XJJ::class.java)
                         startActivity(intent)
                     })
                 .setPositiveButton("确定",
