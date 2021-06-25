@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ListView_XJJ">
+    tools:context=".ListView_XJJ"
+    android:background="@drawable/beijin"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"

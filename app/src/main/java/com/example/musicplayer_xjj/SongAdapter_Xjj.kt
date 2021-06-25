@@ -32,7 +32,6 @@ class SongAdapter_Xjj(val SongList: ArrayList<Song>,val path:String) :
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
         val viewHolder = ViewHolder(view)
         viewHolder.itemView.setOnClickListener {
-
             val position = viewHolder.adapterPosition
             val intent = Intent()
             val bundle = Bundle()
@@ -57,7 +56,7 @@ class SongAdapter_Xjj(val SongList: ArrayList<Song>,val path:String) :
                         notifyItemRemoved(position)
                         notifyItemRangeChanged(position, itemCount)
                     })
-                .setPositiveButton("下载，需要等待6s",
+                .setPositiveButton("下载",
                     DialogInterface.OnClickListener { dialog, whichButton ->
                         Log.d("pre",SongList[position].path.substring(0,4))
                         if (SongList[position].path.substring(0,4) != "http")
@@ -68,7 +67,7 @@ class SongAdapter_Xjj(val SongList: ArrayList<Song>,val path:String) :
                             val download = DownLoadMusic_XJJ()
                             download.downLoad(SongList[position].path, SongList[position].name,path,parent.context)
 
-                            Thread.sleep(6000)
+//                            Thread.sleep(6000)
                             Toast.makeText(parent.context,"下载成功",Toast.LENGTH_SHORT).show()
                         }
                     }).show()

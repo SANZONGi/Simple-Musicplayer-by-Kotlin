@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@drawable/beijin"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -69,40 +71,62 @@
             android:textSize="12sp" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/previous"
+    <LinearLayout
+        android:layout_marginTop="500dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="上一首" />
+        android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/play"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="PlayOrPause"
-        android:text="暂停" />
+        <ImageView
+            android:id="@+id/previous"
 
-    <Button
-        android:id="@+id/next"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="下一首" />
+            android:layout_width="156dp"
+            android:layout_height="38dp"
+            android:layout_weight="1"
+            android:src="@drawable/prev" />
 
-    <Button
-        android:id="@+id/mode"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="顺序播放" />
+        <ImageView
+            android:id="@+id/play"
+            android:layout_width="104dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="PlayOrPause"
+            android:src="@drawable/pause" />
 
-    <Button
-        android:id="@+id/quit_with_music"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="后台播放" />
+        <ImageView
+            android:id="@+id/next"
+            android:layout_width="152dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/next" />
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/favourite"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="加入收藏" />
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/mode"
+            android:layout_width="244dp"
+            android:layout_height="39dp"
+            android:layout_weight="1"
+            android:src="@drawable/shunxu"
+            android:text="顺序播放" />
+
+        <ImageView
+            android:id="@+id/quit_with_music"
+            android:layout_width="221dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/home" />
+
+        <ImageView
+            android:id="@+id/favourite"
+            android:layout_width="237dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/shoucang"
+            android:tag="加入收藏"
+            />
+    </LinearLayout>
+
 </LinearLayout>

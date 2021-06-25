@@ -8,6 +8,13 @@ class MyData : Application() {
     private var sing_path = "sdcard/Music/"
     public fun addSongs(s:Song)
     {
+        var flag = 0
+        for ( ss in  Stored_Songs)
+        {
+            if (ss.name . equals(s.name))
+                flag = 1
+        }
+        if (flag == 0)
         Stored_Songs.add(s)
     }
     fun getPath() = sing_path

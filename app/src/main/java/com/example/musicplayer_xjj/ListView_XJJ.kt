@@ -17,10 +17,13 @@ import kotlinx.android.synthetic.main.activity_list_view.*
 
 class ListView_XJJ : AppCompatActivity() {
     var songlist = ArrayList<Song>()
+    var fav_list = ArrayList<Song>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_view)
+        val dbHelper  =MyDatabaseHelper(this,"fav.db",1)
+        dbHelper.writableDatabase
         getpermission()
         Toast.makeText(this, "长按编辑或下载在线歌曲", Toast.LENGTH_LONG).show()
         val fav_song = application as MyData
@@ -44,6 +47,21 @@ class ListView_XJJ : AppCompatActivity() {
             rec_song.adapter = SongAdapter_Xjj(songlist, fav_song.getPath())
         }
         favourite_music.setOnClickListener {
+            fav_list.clear()
+            val dbHelper = MyDatabaseHelper(this,"fav.db",1)
+            val db = dbHelper.writableDatabase
+            val cursor =db.query("fav",null,null,null,null,null,null)
+            if (cursor.moveToFirst()){
+                do {
+                    val name = cursor.getString(cursor.getColumnIndex("name"))
+                    for (s in songlist)
+                    {
+                        if (s.name .equals(name))
+                            fav_list.add(s)
+                    }
+                }while (cursor.moveToNext())
+            }
+            cursor.close()
             rec_song.adapter = SongAdapter_Xjj(fav_song.getAllSongs(), fav_song.getPath())
         }
     }

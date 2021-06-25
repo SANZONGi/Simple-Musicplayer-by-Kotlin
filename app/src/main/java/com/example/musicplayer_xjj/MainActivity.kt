@@ -1,6 +1,7 @@
 package com.example.musicplayer_xjj
 
 import android.app.AlertDialog
+import android.content.ContentValues
 import android.content.DialogInterface
 import android.content.Intent
 import android.media.MediaPlayer
@@ -66,20 +67,28 @@ class MainActivity : AppCompatActivity() {
             modeflag = (modeflag + 1) % 3
             when(modeflag)
             {
-                0 -> { mode.text = "顺序播放"
+                0 -> { mode.setImageResource(R.drawable.shunxu)
                     mPlayer.isLooping = false}
-                1 -> { mode.text = "随机播放"
+                1 -> { mode.setImageResource(R.drawable.suiji)
                     songlist.shuffle()
                     mPlayer.isLooping = false
                 }
-                2 -> { mode.text = "单曲循环"
+                2 -> { mode.setImageResource(R.drawable.danqu)
                 mPlayer.isLooping = true
                 }
             }
         }
         favourite.setOnClickListener{
-            if ("加入收藏".equals(favourite.text))
+            if ("加入收藏".equals(favourite.tag)) {
+                Toast.makeText(this,"收藏成功",Toast.LENGTH_SHORT).show()
                 favourite_song.addSongs(songlist[position])
+                val dbHelper = MyDatabaseHelper(this,"Student.db",2)
+                val db = dbHelper.writableDatabase
+                val value = ContentValues().apply {
+                    put("name",songlist[position].name)
+                }
+                db.insert("student",null,value)
+            }
             else if(posAtfav != -1)
                 favourite_song.removeSong(posAtfav)
         }
@@ -128,7 +137,7 @@ class MainActivity : AppCompatActivity() {
         {
             if (songlist[pos].name == favourite_song.getAllSongs()[i].name && songlist[pos].duration == favourite_song.getAllSongs()[i].duration)
             {
-                favourite.text = "移除收藏夹"
+//                favourite.setImageResource(R.drawable.quxiaoshoucang)
                 posAtfav = i
             }
         }
@@ -143,7 +152,7 @@ class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     fun initPlayer(position: Int) {
         val song: Song = songlist[position]
-        play.text = "暂停"
+        play.setImageResource(R.drawable.pause)
         Log.d("song_path",song.path)
         initOneSong(song,position)
         initProcess()
@@ -180,10 +189,10 @@ class MainActivity : AppCompatActivity() {
     fun PlayOrPause(view: View) {
         if (mPlayer.isPlaying) {
             mPlayer.pause()
-            play.text = "播放"
+            play.setImageResource(R.drawable.bofang)
         } else {
             mPlayer.start()
-            play.text = "暂停"
+            play.setImageResource(R.drawable.pause)
         }
     }
 
